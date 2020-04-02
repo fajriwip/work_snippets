@@ -1,0 +1,23 @@
+event trigger
+
+$(window).resize(function() {
+   if(this.resizeTO) clearTimeout(this.resizeTO);
+   this.resizeTO = setTimeout(function() {
+      $(this).trigger('resizeEnd');
+   }, 500);
+});
+
+Event Handler
+
+$(window).bind('resizeEnd', function() {
+   var url = $('#$WrapperID').data('refresh');
+   $('#$WrapperID').fadeOut("slow", function() {
+      $('#$WrapperID').load(url, { width: $('#$HTMLID').width() },
+      function() {
+         FB.XFBML.parse(document.getElementById('$WrapperID'),
+         function() {
+            $('#$WrapperID').fadeIn("slow");
+         });
+      })
+   });
+});
